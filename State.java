@@ -113,6 +113,10 @@ public class State {
             }
             System.out.println("");
         }
+        System.out.println("G: " + g);
+        System.out.println("H: " + h);
+        System.out.println("F: " + f);
+        System.out.println("");
     }
 
     private int getManhattanDistance () {
@@ -125,10 +129,13 @@ public class State {
                 Action location = findLocation(x);
                 int realI = location.getI();
                 int realJ = location.getJ();
-
+                // System.out.println(x + ") X: " + realI + " J: " + realJ);
                 int tempa = Math.abs(realI - i) + Math.abs(realJ - j);
-                manhattanDistance += tempa;
-
+                // System.out.println("Tempa (" + x + "):" + tempa);
+                if(x < 9) {
+                    manhattanDistance += tempa;
+                }
+                x++;
             }
         }
         return manhattanDistance;
