@@ -10,6 +10,15 @@ public class Puzzle {
         for(Action a : currentState.getActions()) {
             a.printMe();
         }
+
+        State newState = currentState.doAction(currentState.getActions().get(0));
+
+        newState.printMe();
+
+        for(Action a : newState.getActions()) {
+            a.printMe();
+        }
+
     }
 
     public static State createRandomState() {

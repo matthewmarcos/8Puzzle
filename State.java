@@ -1,4 +1,5 @@
 import java.util.*;
+import java.lang.*;
 
 public class State {
     private State parent;
@@ -24,14 +25,40 @@ public class State {
     public State doAction(Action a) {
         int i = a.getI();
         int j = a.getJ();
-        // Check if action is legit
-        // If legit, swap 0 and
+        // Get index of 0
+        int hotI, hotJ; //location of i and j
+        int[][] tempBoard = new int[3][3];
 
-        return this; //Temporary
+        Action index0 = new Action(0, 0);
+
+        // Initialize tempBoard
+        for(int x = 0 ; x < 3 ; x++) {
+            for(int y = 0 ; y < 3 ; y++) {
+                tempBoard[x][y] = this.board[x][y];
+            }
+        }
+        outerloop:
+        for(int x = 0 ; x < 3 ; x++) {
+            for(int y = 0 ; y < 3 ; y++) {
+                if(tempBoard[x][y] == 0) {
+                    index0 = new Action(x, y);
+                    break outerloop;
+                }
+            }
+        }
+
+        hotI = index0.getI(); hotJ = index0.getJ();
+
+        // Swap
+        tempBoard[hotI][hotJ] = tempBoard[i][j];
+        tempBoard[i][j] = 0;
+
+        return new State(this, tempBoard, g+1); //Temporary
     }
 
     public ArrayList<Action> getActions() {
         // Returns an arraylist of all possible action to be done with current state
+
         Action index0 = new Action(0, 0);
         int hotI, hotJ; //location of i and j
         ArrayList<Action> tempActions = new ArrayList<Action>();
@@ -91,12 +118,32 @@ public class State {
     private int getManhattanDistance () {
         // returns manhattan distance of this state
         int manhattanDistance = 0;
+        int x = 1;
         for(int i = 0 ; i < 3 ; i++) {
             for(int j = 0 ; j < 3 ; j++) {
+                // Find the location of X
+                Action location = findLocation(x);
+                int realI = location.getI();
+                int realJ = location.getJ();
+
+                int tempa = Math.abs(realI - i) + Math.abs(realJ - j);
+                manhattanDistance += tempa;
 
             }
         }
         return manhattanDistance;
+    }
+
+    private Action findLocation(int x) {
+        for(int i = 0 ; i < 3 ; i++) {
+            for(int j = 0 ; j < 3 ; j++) {
+                if(x == board[i][j]) {
+                    return new Action(i, j);
+                }
+            }
+        }
+
+        return new Action(0, 0);
     }
 
     public boolean goalTest() {
