@@ -2,7 +2,8 @@ public class Action {
     private int i;
     private int j;
 
-    public Action(int i, int j) {
+    public Action(int i, int j) throws IllegalArgumentException {
+        if(i < 0 || i > 2 || j < 0 || j > 2) throw new IllegalArgumentException("Illegal coordinates");
         this.i = i;
         this.j = j;
     }
@@ -13,5 +14,11 @@ public class Action {
 
     public int getJ() {
         return this.j;
+    }
+
+    public void printMe() {
+        System.out.println("I: " + this.i);
+        System.out.println("J: " + this.j);
+        System.out.println("");
     }
 }

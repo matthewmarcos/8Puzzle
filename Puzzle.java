@@ -7,6 +7,9 @@ public class Puzzle {
     public static void main (String[] args) {
         currentState = Puzzle.createRandomState();
         currentState.printMe();
+        for(Action a : currentState.getActions()) {
+            a.printMe();
+        }
     }
 
     public static State createRandomState() {
