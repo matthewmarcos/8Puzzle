@@ -34,6 +34,9 @@ public class Puzzle {
         for(int i = 0 ; i < 3 ; i++) {
             for(int j = 0 ; j < 3 ; j++) {
                 buttons[i][j] = new CoolButton(i, j);
+                buttons[i][j].setRolloverEnabled(false);
+                buttons[i][j].setEnabled(false);
+                // buttons[i][j]
                 panel.add(buttons[i][j]);
             }
         }
@@ -45,13 +48,14 @@ public class Puzzle {
             for(int j = 0 ; j < 3 ; j++) {
                 if(currentState.getValues()[i][j] != 0) {
                     // Draw a number if value is not zero
+                    buttons[i][j].setBackground(Color.WHITE);
                     buttons[i][j].setText(currentState.getValues()[i][j] + "");
                 }
                 else {
-                    buttons[i][j].setBackground(Color.BLACK);
+                    buttons[i][j].setBackground(Color.GRAY);
                     buttons[i][j].setText("");
                 }
-
+                buttons[i][j].setOpaque(true);
             }
         }
     }
