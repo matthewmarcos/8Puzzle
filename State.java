@@ -164,4 +164,8 @@ public class State {
         }
         return true;
     }
+
+    public int[][] getValues() {
+        return this.board;
+    }
 }
