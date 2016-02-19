@@ -13,32 +13,47 @@ public class Puzzle {
         JPanel panel = new JPanel();
 
         // Initialize panel settings
-        setBoard(panel);
+        initializeBoard(panel);
+        drawBoard();
         currentState.printMe();
         // Initialize frame settings.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(600, 700));
         frame.setLayout(new BorderLayout());
 
-
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
-    private static void setBoard(JPanel panel) {
+    private static void initializeBoard(JPanel panel) {
+        // Initializes the panel with buttons.
+        // The states of the buttons are also initialized here.
         panel.setSize(new Dimension(600, 600));
         panel.setLayout(new GridLayout(3, 3));
 
         for(int i = 0 ; i < 3 ; i++) {
             for(int j = 0 ; j < 3 ; j++) {
-                buttons[i][j] = new CoolButton(i, j, currentState.getValues()[i][j] + "");
+                buttons[i][j] = new CoolButton(i, j);
                 panel.add(buttons[i][j]);
             }
         }
     }
 
-    private static void reDrawBoard() {
-        // TODO: Change the labels of the board.
+    public static void drawBoard() {
+        // Change the labels of the board.
+        for(int i = 0 ; i < 3 ; i++) {
+            for(int j = 0 ; j < 3 ; j++) {
+                if(currentState.getValues()[i][j] != 0) {
+                    // Draw a number if value is not zero
+                    buttons[i][j].setText(currentState.getValues()[i][j] + "");
+                }
+                else {
+                    buttons[i][j].setBackground(Color.BLACK);
+                    buttons[i][j].setText("");
+                }
+
+            }
+        }
     }
 
     public static State createRandomState() {
