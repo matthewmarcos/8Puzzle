@@ -1,4 +1,6 @@
 import java.util.*;
+import java.awt.*;
+import javax.swing.*;
 
 public class Puzzle {
 
@@ -6,18 +8,35 @@ public class Puzzle {
 
     public static void main (String[] args) {
         currentState = Puzzle.createRandomState();
-        currentState.printMe();
-        for(Action a : currentState.getActions()) {
-            a.printMe();
+        JFrame frame = new JFrame("8-Puzzle by Marcos");
+        JPanel panel = new JPanel();
+
+        // Initialize panel settings
+        setBoard(panel);
+
+        // Initialize frame settings.
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(new Dimension(600, 700));
+        frame.setLayout(new BorderLayout());
+
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+
+    private static void setBoard(JPanel panel) {
+        JButton[][] buttons = new JButton[3][3];
+
+        panel.setSize(new Dimension(600, 600));
+        panel.setLayout(new GridLayout(3, 3));
+
+        for(int i = 0 ; i < 3 ; i++) {
+            for(int j = 0 ; j < 3 ; j++) {
+                buttons[i][j] = new JButton("Button");
+                panel.add(buttons[i][j]);
+            }
         }
 
-        State newState = currentState.doAction(currentState.getActions().get(0));
-
-        newState.printMe();
-
-        for(Action a : newState.getActions()) {
-            a.printMe();
-        }
 
     }
 
