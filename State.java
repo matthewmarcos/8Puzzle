@@ -22,9 +22,27 @@ public class State {
 
     }
 
+    private boolean canDoAction(Action a) {
+
+        for(Action f : this.getActions()) {
+            if(f.equals(a)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public State doAction(Action a) {
         int i = a.getI();
         int j = a.getJ();
+
+        if(!this.canDoAction(a)) {
+            // Check if action is legitimate.
+            // If action cannot be performed, return this current state.
+            return this;
+        }
+
         // Get index of 0
         int hotI, hotJ; //location of i and j
         int[][] tempBoard = new int[3][3];

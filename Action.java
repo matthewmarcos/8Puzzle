@@ -21,4 +21,12 @@ public class Action {
         System.out.println("J: " + this.j);
         System.out.println("");
     }
+
+    public boolean equals (Action a) {
+        // Checks of two actions are equal
+        if(a.getI() == this.i && a.getJ() == this.j) {
+            return true;
+        }
+        return false;
+    }
 }
