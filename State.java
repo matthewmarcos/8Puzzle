@@ -11,7 +11,6 @@ public class State {
     public State (State parent, int[][] board, int g) {
         this.parent = parent;
         this.g = g;
-        // this.h = h;
         for(int i = 0 ; i < 3 ; i++) {
             for(int j = 0 ; j < 3 ; j++) {
                 this.board[i][j] = board[i][j];
@@ -33,6 +32,16 @@ public class State {
         return false;
     }
 
+    public void setNullParent() {
+        // Set the parent of this state to null so it can be garbage collected.
+        // This also changes the values of g, h, and f.
+        this.parent = null;
+        this.g = 0;
+        this.h = this.getManhattanDistance();
+        this.f = this.g + this.h;
+        // This method is only used whenever an action is done with the GUI
+    }
+
     public State doAction(Action a) {
         int i = a.getI();
         int j = a.getJ();
@@ -47,6 +56,7 @@ public class State {
         int hotI, hotJ; //location of i and j
         int[][] tempBoard = new int[3][3];
 
+        // Initialize with an action (That action won't be used)
         Action index0 = new Action(0, 0);
 
         // Initialize tempBoard
@@ -71,7 +81,7 @@ public class State {
         tempBoard[hotI][hotJ] = tempBoard[i][j];
         tempBoard[i][j] = 0;
 
-        return new State(this, tempBoard, g+1); //Temporary
+        return new State(this, tempBoard, this.g+1);
     }
 
     public ArrayList<Action> getActions() {
@@ -131,7 +141,7 @@ public class State {
             }
             System.out.println("");
         }
-        System.out.println("G: " + g);
+        System.out.println("G: " + this.g);
         System.out.println("H: " + h);
         System.out.println("F: " + f);
         System.out.println("");

@@ -7,24 +7,56 @@ public class Puzzle {
 
     private static State currentState;
     private static CoolButton[][] buttons = new CoolButton[3][3];
-    private static JPanel panel;
     private static JFrame frame;
+    private static JPanel panel;
+    private static JPanel commandPanel;
+    private static JButton controlButtons;
 
     public static void main (String[] args) {
+        // Randomly generate puzzle
         currentState = Puzzle.createRandomState();
-        frame = new JFrame("8-Puzzle by Marcos");
-        panel = new JPanel();
 
+        frame = new JFrame("8-Puzzle by Marcos");
+
+        panel = new JPanel();
         // Initialize panel settings
+        panel.setSize(new Dimension(600, 600));
         initializeBoard();
         drawBoard();
+
+        // Initiate Command Panel (bottom of the board)
+        commandPanel = new JPanel();
+        commandPanel.setSize(new Dimension(600, 100));
+        initializeCommandPanel();
 
         // Initialize frame settings.
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(600, 700));
         frame.setLayout(new BorderLayout());
         frame.add(panel, BorderLayout.CENTER);
+        frame.add(commandPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
+    }
+
+    private static void initializeCommandPanel() {
+        controlButtons = new JButton("Solve");
+        // controlButtons.setRolloverEnabled(false);
+        // controlButtons.setEnabled(false);
+        controlButtons.addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent ev){
+                State tempState = Solver.solve(currentState);
+                // if unsolvable, solver returns null
+            }
+            public void mousePressed(MouseEvent ev){}
+            public void mouseEntered(MouseEvent ev){}
+            public void mouseReleased(MouseEvent ev){}
+            public void mouseExited(MouseEvent ev){}
+
+        });
+        controlButtons.setSize(new Dimension(600, 100));
+
+        commandPanel.setSize(new Dimension(600, 100));
+        commandPanel.add(controlButtons);
     }
 
     private static void initializeBoard() {
@@ -54,9 +86,9 @@ public class Puzzle {
     }
 
     private static void move(Action e) {
-        // Solves the current state of the board.
-        // Puzzle.setBoard();
+        // Moves the board
         currentState = currentState.doAction(e);
+        currentState.setNullParent(); // Null parent to save space
         drawBoard();
     }
 
@@ -77,6 +109,8 @@ public class Puzzle {
                 buttons[i][j].setFont(new Font("Arial", Font.BOLD, 40));
             }
         }
+
+        currentState.printMe();
     }
 
     public static State createRandomState() {

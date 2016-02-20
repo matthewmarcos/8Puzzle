@@ -18,7 +18,6 @@ public class CoolButton extends JButton{
     public Action triggerAction() {
         // Return action instance when this is pressed.
         // The action instance should be passed to the state
-
         return new Action(this.i, this.j);
     }
 
