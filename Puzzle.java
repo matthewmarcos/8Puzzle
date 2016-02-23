@@ -2,6 +2,7 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
 
 public class Puzzle {
 
@@ -59,7 +60,11 @@ public class Puzzle {
                 }
                 else {
                     tempState.printMe();
-                    printToFile(tempState);
+                    try {
+                        printToFile(tempState);
+                    } catch (Exception e) {
+                        
+                    }
                 }
                 // Solver.solve(currentState);
                 // if unsolvable, solver returns null
@@ -104,17 +109,35 @@ public class Puzzle {
         System.out.println("Inversions: " + inversions);
 
         return (inversions%2==0);
-
-        // return true;
     }
 
-    private static void printToFile(State s) {
+    private static void printToFile(State s) throws Exception {
         State tempState = s;
+        ArrayList<State> list = new ArrayList<State>();
         while(tempState.getParent() != null) {
-            tempState.printMe();
+            // tempState.printMe();
+            list.add(tempState);
             tempState = tempState.getParent();
         }
-        tempState.printMe();
+        // tempState.printMe();
+        list.add(tempState);
+
+        PrintWriter writer = new PrintWriter("8puzzle.out", "UTF-8");
+        // Write to file here
+
+
+        for(int i = list.size()-1 ; i >= 0  ; i--) {
+            writer.println("Step " + (list.size() - i) + ": ");
+            int[][] stuff = list.get(i).getValues();
+            for(int t = 0 ; t < 3 ; t++) {
+                for(int j = 0 ; j < 3 ; j++) {
+                    writer.print(stuff[t][j] + " ");
+                }
+                writer.println("");
+            }
+            // list.get(i).printMe();
+        }
+        writer.close();
     }
 
     private static void initializeBoard() {
