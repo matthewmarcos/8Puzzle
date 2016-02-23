@@ -8,8 +8,14 @@ public class Puzzle {
 
     private static State currentState;
     private static CoolButton[][] buttons = new CoolButton[3][3];
+    private static CoolButton[][] buttons2 = new CoolButtons[3][3];
+
     private static JFrame frame;
+    private static JFrame frame2;
+
     private static JPanel panel;
+    private static JPanel panel2;
+
     private static JPanel commandPanel;
     private static JButton controlButtons;
 
@@ -111,6 +117,13 @@ public class Puzzle {
         System.out.println("Inversions: " + inversions);
 
         return (inversions%2==0);
+    }
+
+    private static voide printSecondState(ArrayList<State> solution) {
+        State tempState;
+        tempState = solution.get(0);
+        frame2 = new JFrame("8-Puzzle Solution by Matthew Marcos");
+        panel2 = new JPanel();
     }
 
     private static void printToFile(State s) throws Exception {
