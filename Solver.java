@@ -17,7 +17,6 @@ public class Solver {
         s.printMe();
         while(!openList.isEmpty()) {
             State bestNode = removeMinF(openList);
-            System.out.println(bestNode.getF());
             closedList.add(bestNode);
             if(bestNode.goalTest()) {
                 return bestNode;

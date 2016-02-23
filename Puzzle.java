@@ -44,10 +44,18 @@ public class Puzzle {
         // controlButtons.setEnabled(false);
         controlButtons.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent ev){
-                State tempState = Solver.solve(currentState);
-                // State tempState = Solver.solveFake();
+                State tempState = null;
+                if(checkSolvable(currentState)) {
+                    System.out.println("Solvable");
+                    tempState = Solver.solve(currentState);
+                    // State tempState = Solver.solveFake();
+                }
+                else {
+                    tempState = null;
+                    System.out.println("Not solvable");
+                }
                 if(tempState == null) {
-                    System.out.println("No");
+                    // System.out.println("No");
                 }
                 else {
                     tempState.printMe();
@@ -68,10 +76,42 @@ public class Puzzle {
         commandPanel.add(controlButtons);
     }
 
+    private static boolean checkSolvable(State s) {
+        // http://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
+        int[] arrayForm = new int[8];
+        int f = 0;
+        for(int i = 0 ; i < 3 ; i++) {
+            for(int j = 0 ; j < 3 ; j++) {
+                if(s.getValues()[i][j] != 0) {
+                    arrayForm[f++] = s.getValues()[i][j];
+                }
+            }
+        }
+
+        for(int x : arrayForm) {
+            System.out.print(x + " ");
+        }
+        System.out.println("");
+        int inversions = 0;
+
+        for(int i = 0 ; i < 8-1 ; i++) {
+            for(int j = i+1 ; j < 8 ; j++) {
+                if(arrayForm[i] > arrayForm[j]) {
+                    inversions ++;
+                }
+            }
+        }
+        System.out.println("Inversions: " + inversions);
+
+        return (inversions%2==0);
+
+        // return true;
+    }
+
     private static void printToFile(State s) {
         State tempState = s;
         while(tempState.getParent() != null) {
-            tempState.printMeToFile();
+            tempState.printMe();
             tempState = tempState.getParent();
         }
         tempState.printMe();

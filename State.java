@@ -169,9 +169,6 @@ public class State {
         System.out.println("");
     }
 
-    public void printMeToFile() {
-
-    }
 
     private int getManhattanDistance () {
         // returns manhattan distance of this state
