@@ -21,6 +21,11 @@ public class State {
 
     }
 
+    public int getPathCost() {
+        // Returns the cost to getting to this state from the initial state
+        return this.g;
+    }
+
     private boolean canDoAction(Action a) {
 
         for(Action f : this.getActions()) {

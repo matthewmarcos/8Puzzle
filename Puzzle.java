@@ -44,7 +44,8 @@ public class Puzzle {
         // controlButtons.setEnabled(false);
         controlButtons.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent ev){
-                State tempState = Solver.solve(currentState);
+                // State tempState = Solver.solve(currentState);
+                Solver.solve(currentState);
                 // if unsolvable, solver returns null
             }
             public void mousePressed(MouseEvent ev){}
@@ -109,8 +110,6 @@ public class Puzzle {
                 buttons[i][j].setFont(new Font("Arial", Font.BOLD, 40));
             }
         }
-
-        currentState.printMe();
     }
 
     public static State createRandomState() {
