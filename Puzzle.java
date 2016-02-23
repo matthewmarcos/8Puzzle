@@ -53,7 +53,8 @@ public class Puzzle {
                 }
                 else {
                     tempState = null;
-                    System.out.println("Not solvable");
+                    JOptionPane.showMessageDialog(frame, "Unsolvable!", "", JOptionPane.PLAIN_MESSAGE);
+
                 }
                 if(tempState == null) {
                     // System.out.println("No");
@@ -62,8 +63,9 @@ public class Puzzle {
                     tempState.printMe();
                     try {
                         printToFile(tempState);
+                        JOptionPane.showMessageDialog(frame, "Successfully printed", "", JOptionPane.PLAIN_MESSAGE);
                     } catch (Exception e) {
-                        
+
                     }
                 }
                 // Solver.solve(currentState);
