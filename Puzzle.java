@@ -44,8 +44,14 @@ public class Puzzle {
         // controlButtons.setEnabled(false);
         controlButtons.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent ev){
-                // State tempState = Solver.solve(currentState);
-                Solver.solve(currentState);
+                State tempState = Solver.solve(currentState);
+                if(tempState == null) {
+                    System.out.println("No");
+                }
+                else {
+                    tempState.printMe();
+                }
+                // Solver.solve(currentState);
                 // if unsolvable, solver returns null
             }
             public void mousePressed(MouseEvent ev){}

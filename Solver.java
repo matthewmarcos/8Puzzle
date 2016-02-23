@@ -24,14 +24,33 @@ public class Solver {
             ArrayList<Action> actionList = new ArrayList<Action>();
             actionList = bestNode.getActions();
             for(Action a : actionList) {
-                // State tempState = bestNode.doAction(a);
-                // if((!isMemberOf(tempState, openList) || !isMemberOf(tempState, closedList)) {
-                //     openList.add(tempState);
-                // }
-                // else {
-                //     // get duplicate from open or closed list, then compare the G
-                // }
+                State tempState = bestNode.doAction(a);
+                if((!isMemberOf(tempState, openList) || !isMemberOf(tempState, closedList))) {
+                    openList.add(tempState);
+                }
+                else {
+                    State duplicate = null;
+                    if(isMemberOf(tempState, openList)) {
+                        // Member of openlist
+                        int index = getIndexOfEqual(tempState, openList);
+                        duplicate = openList.get(index);
+                        if(duplicate.getG() > tempState.getG()) {
+                            openList.remove(index);
+                            openList.add(tempState);
+                        }
+                    }
+                    else {
+                        // Member of closed list
+                        int index = getIndexOfEqual(tempState, closedList);
+                        duplicate = closedList.get(index);
+                        if(duplicate.getG() > tempState.getG()) {
+                            closedList.remove(index);
+                            openList.add(tempState);
+                        }
+                    }
+                }
             }
+
         }
 
         return null;

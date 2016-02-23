@@ -21,7 +21,7 @@ public class State {
 
     }
 
-    public int getPathCost() {
+    public int getG() {
         // Returns the cost to getting to this state from the initial state
         return this.g;
     }
