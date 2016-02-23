@@ -151,6 +151,8 @@ public class Puzzle {
             answerList.add(list.get(i));
         }
 
+        System.out.println("Yeah");
+
         new SolWindow(answerList);
     }
 

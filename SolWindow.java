@@ -21,14 +21,13 @@ public class SolWindow {
     public SolWindow(ArrayList<State> states) {
         this.states = states;
         frame = new JFrame("8-Puzzle Solution by Marcos");
-        panel = new JPanel();
 
         // Initialize panel
         initializeBoard();
         setBoardState(0);
-
+        System.out.println("Yeah2");
         // Initialize CommandPanel
-        // initializeCommandPanel();
+        initializeCommandPanel();
         // Initialize frame settings.
         frame.setSize(new Dimension(600, 700));
         frame.setLayout(new BorderLayout());
@@ -39,13 +38,15 @@ public class SolWindow {
     }
 
     private static void initializeCommandPanel() {
+        commandPanel = new JPanel();
+
         prev = new JButton("Previous");
         next = new JButton("Next");
 
         prev.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent ev){
                 if(location >= 0) {
-                    // setBoardState(--location);
+                    setBoardState(--location);
                 }
             }
             public void mousePressed(MouseEvent ev){}
@@ -58,7 +59,7 @@ public class SolWindow {
         next.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent ev){
                 if(location < states.size()-1) {
-                    // setBoardState(++location);
+                    setBoardState(++location);
                 }
             }
             public void mousePressed(MouseEvent ev){}
@@ -99,6 +100,7 @@ public class SolWindow {
     private static void initializeBoard() {
         // Initializes the panel with buttons.
         // The states of the buttons are also initialized here.
+        panel = new JPanel();
         panel.setSize(new Dimension(600, 600));
         panel.setLayout(new GridLayout(3, 3));
 
