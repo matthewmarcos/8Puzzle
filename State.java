@@ -47,6 +47,19 @@ public class State {
         // This method is only used whenever an action is done with the GUI
     }
 
+    public boolean equals(State s) {
+        for(int i = 0 ; i < 3 ; i++) {
+            for(int j = 0 ; j < 3 ; j++) {
+                if(this.board[i][j] != s.getValues()[i][j]) {
+                    // Not equal
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public State doAction(Action a) {
         int i = a.getI();
         int j = a.getJ();
@@ -189,13 +202,17 @@ public class State {
         for(int i = 0 ; i < 3 ; i++) {
             for(int j = 0 ; j < 3 ; j++) {
                 if(this.board[i][j] != num) {
-                    System.out.println("Not yet solved!");
+                    // Not yet solved
                     return false;
                 }
                 num++;
             }
         }
         return true;
+    }
+
+    public int getF() {
+        return this.f;
     }
 
     public int[][] getValues() {
