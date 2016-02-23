@@ -45,7 +45,7 @@ public class SolWindow {
 
         prev.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent ev){
-                if(location >= 0) {
+                if(location > 0) {
                     setBoardState(--location);
                 }
             }
@@ -78,6 +78,8 @@ public class SolWindow {
     private static void setBoardState(int x) {
         location = x;
         currentState = states.get(location);
+
+        frame.setTitle("8-Puzzle Solution by Marcos: Step " + (location+1) + " of " + states.size());
 
         for(int i = 0 ; i < 3 ; i++) {
             for(int j = 0 ; j < 3 ; j++) {
