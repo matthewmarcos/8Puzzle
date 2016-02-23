@@ -17,6 +17,7 @@ public class Solver {
         s.printMe();
         while(!openList.isEmpty()) {
             State bestNode = removeMinF(openList);
+            System.out.println(bestNode.getF());
             closedList.add(bestNode);
             if(bestNode.goalTest()) {
                 return bestNode;
@@ -24,11 +25,13 @@ public class Solver {
             ArrayList<Action> actionList = new ArrayList<Action>();
             actionList = bestNode.getActions();
             for(Action a : actionList) {
-                State tempState = bestNode.doAction(a);
+                State tempState = bestNode.doAction(a); //Execute the action
                 if((!isMemberOf(tempState, openList) || !isMemberOf(tempState, closedList))) {
+                    // If resulting state is not in the open or closed list, add it.
                     openList.add(tempState);
                 }
                 else {
+                    // Resulting state is in the open or closed list
                     State duplicate = null;
                     if(isMemberOf(tempState, openList)) {
                         // Member of openlist
@@ -54,6 +57,19 @@ public class Solver {
         }
 
         return null;
+    }
+
+    public static State solveFake() {
+        int[][] board = new int[3][3];
+
+        board[0][0] = 0; board[0][1] = 1; board[0][2] = 3;
+
+        board[1][0] = 5; board[1][1] = 2; board[1][2] = 6;
+
+        board[2][0] = 4; board[2][1] = 7; board[2][2] = 8;
+
+        State tempState = new State(null, board, 0);
+        return Solver.solve(tempState);
     }
 
     private static int getIndexOfEqual(State s, ArrayList<State> list) {

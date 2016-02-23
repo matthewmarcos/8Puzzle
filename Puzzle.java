@@ -45,11 +45,13 @@ public class Puzzle {
         controlButtons.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent ev){
                 State tempState = Solver.solve(currentState);
+                // State tempState = Solver.solveFake();
                 if(tempState == null) {
                     System.out.println("No");
                 }
                 else {
                     tempState.printMe();
+                    printToFile(tempState);
                 }
                 // Solver.solve(currentState);
                 // if unsolvable, solver returns null
@@ -64,6 +66,15 @@ public class Puzzle {
 
         commandPanel.setSize(new Dimension(600, 100));
         commandPanel.add(controlButtons);
+    }
+
+    private static void printToFile(State s) {
+        State tempState = s;
+        while(tempState.getParent() != null) {
+            tempState.printMeToFile();
+            tempState = tempState.getParent();
+        }
+        tempState.printMe();
     }
 
     private static void initializeBoard() {

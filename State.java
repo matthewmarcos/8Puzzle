@@ -21,6 +21,10 @@ public class State {
 
     }
 
+    public State getParent() {
+        return this.parent;
+    }
+
     public int getG() {
         // Returns the cost to getting to this state from the initial state
         return this.g;
@@ -165,6 +169,10 @@ public class State {
         System.out.println("");
     }
 
+    public void printMeToFile() {
+
+    }
+
     private int getManhattanDistance () {
         // returns manhattan distance of this state
         int manhattanDistance = 0;
@@ -198,17 +206,24 @@ public class State {
     }
 
     public boolean goalTest() {
-        int num = 1;
-        for(int i = 0 ; i < 3 ; i++) {
-            for(int j = 0 ; j < 3 ; j++) {
-                if(this.board[i][j] != num) {
-                    // Not yet solved
-                    return false;
-                }
-                num++;
-            }
+        if(
+            board[0][0] == 1 &&
+            board[0][1] == 2 &&
+            board[0][2] == 3 &&
+
+            board[1][0] == 4 &&
+            board[1][1] == 5 &&
+            board[1][2] == 6 &&
+
+            board[2][0] == 7 &&
+            board[2][1] == 8 &&
+            board[2][2] == 0
+        ) {
+            return true;
         }
-        return true;
+        else {
+            return false;
+        }
     }
 
     public int getF() {
