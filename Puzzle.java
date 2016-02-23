@@ -8,16 +8,12 @@ public class Puzzle {
 
     private static State currentState;
     private static CoolButton[][] buttons = new CoolButton[3][3];
-    private static CoolButton[][] buttons2 = new CoolButtons[3][3];
 
     private static JFrame frame;
-    private static JFrame frame2;
-
     private static JPanel panel;
-    private static JPanel panel2;
-
     private static JPanel commandPanel;
     private static JButton controlButtons;
+    private static JButton randomizeButton;
 
     public static void main (String[] args) {
         // Randomly generate puzzle
@@ -74,7 +70,6 @@ public class Puzzle {
 
                     }
                 }
-                // Solver.solve(currentState);
                 // if unsolvable, solver returns null
             }
             public void mousePressed(MouseEvent ev){}
@@ -83,9 +78,24 @@ public class Puzzle {
             public void mouseExited(MouseEvent ev){}
 
         });
-        controlButtons.setSize(new Dimension(600, 100));
+
+        randomizeButton = new JButton("Randomize");
+        randomizeButton.addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent ev){
+                currentState = Puzzle.createRandomState();
+                drawBoard();
+            }
+            public void mousePressed(MouseEvent ev){}
+            public void mouseEntered(MouseEvent ev){}
+            public void mouseReleased(MouseEvent ev){}
+            public void mouseExited(MouseEvent ev){}
+
+        });
+
+        // controlButtons.setSize(new Dimension(600, 100));
 
         commandPanel.setSize(new Dimension(600, 100));
+        commandPanel.add(randomizeButton);
         commandPanel.add(controlButtons);
     }
 
@@ -119,11 +129,9 @@ public class Puzzle {
         return (inversions%2==0);
     }
 
-    private static voide printSecondState(ArrayList<State> solution) {
+    private static void printSecondState(ArrayList<State> solution) {
         State tempState;
         tempState = solution.get(0);
-        frame2 = new JFrame("8-Puzzle Solution by Matthew Marcos");
-        panel2 = new JPanel();
     }
 
     private static void printToFile(State s) throws Exception {
