@@ -15,28 +15,69 @@ public class SolWindow {
     private static int location;
     private static State currentState;
 
+    private static JButton prev, next;
+
+
     public SolWindow(ArrayList<State> states) {
         this.states = states;
-        this.location = 0;
         frame = new JFrame("8-Puzzle Solution by Marcos");
         panel = new JPanel();
+
+        // Initialize panel
         initializeBoard();
-        // drawBoard();
+        setBoardState(0);
 
-
-
+        // Initialize CommandPanel
+        // initializeCommandPanel();
         // Initialize frame settings.
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(600, 700));
         frame.setLayout(new BorderLayout());
         frame.add(panel, BorderLayout.CENTER);
-        // frame.add(commandPanel, BorderLayout.SOUTH);
+        frame.add(commandPanel, BorderLayout.SOUTH);
         frame.setVisible(true);
 
     }
 
-    public static void drawBoard() {
-        // Change the labels of the board.
+    private static void initializeCommandPanel() {
+        prev = new JButton("Previous");
+        next = new JButton("Next");
+
+        prev.addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent ev){
+                if(location >= 0) {
+                    // setBoardState(--location);
+                }
+            }
+            public void mousePressed(MouseEvent ev){}
+            public void mouseEntered(MouseEvent ev){}
+            public void mouseReleased(MouseEvent ev){}
+            public void mouseExited(MouseEvent ev){}
+
+        });
+
+        next.addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent ev){
+                if(location < states.size()-1) {
+                    // setBoardState(++location);
+                }
+            }
+            public void mousePressed(MouseEvent ev){}
+            public void mouseEntered(MouseEvent ev){}
+            public void mouseReleased(MouseEvent ev){}
+            public void mouseExited(MouseEvent ev){}
+
+        });
+
+        commandPanel.setSize(new Dimension(600, 100));
+        commandPanel.add(prev);
+        commandPanel.add(next);
+
+    }
+
+    private static void setBoardState(int x) {
+        location = x;
+        currentState = states.get(location);
+
         for(int i = 0 ; i < 3 ; i++) {
             for(int j = 0 ; j < 3 ; j++) {
                 if(currentState.getValues()[i][j] != 0) {
@@ -52,8 +93,8 @@ public class SolWindow {
                 buttons[i][j].setFont(new Font("Arial", Font.BOLD, 40));
             }
         }
-    }
 
+    }
 
     private static void initializeBoard() {
         // Initializes the panel with buttons.

@@ -62,10 +62,11 @@ public class Puzzle {
                     // System.out.println("No");
                 }
                 else {
-                    tempState.printMe();
+                    // tempState.printMe();
                     try {
-                        printToFile(tempState);
-                        JOptionPane.showMessageDialog(frame, "Successfully printed", "", JOptionPane.PLAIN_MESSAGE);
+                        createSolWindow(tempState);
+                        // printToFile(tempState);
+                        // JOptionPane.showMessageDialog(frame, "Successfully printed", "", JOptionPane.PLAIN_MESSAGE);
                     } catch (Exception e) {
 
                     }
@@ -132,6 +133,25 @@ public class Puzzle {
     private static void printSecondState(ArrayList<State> solution) {
         State tempState;
         tempState = solution.get(0);
+    }
+
+    private static  void createSolWindow(State s) {
+        State tempState = s;
+        ArrayList<State> list = new ArrayList<State>();
+        ArrayList<State> answerList = new ArrayList<State>();
+        while(tempState.getParent() != null) {
+            // tempState.printMe();
+            list.add(tempState);
+            tempState = tempState.getParent();
+        }
+        // tempState.printMe();
+        list.add(tempState);
+
+        for(int i = list.size()-1 ; i >= 0  ; i--) {
+            answerList.add(list.get(i));
+        }
+
+        new SolWindow(answerList);
     }
 
     private static void printToFile(State s) throws Exception {
